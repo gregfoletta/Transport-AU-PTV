@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use 5.010;
 
+use parent qw(Transport::AU::PTV::NoError);
+
 use Transport::AU::PTV::Error;
 
 use LWP::UserAgent;
@@ -11,6 +13,8 @@ use Carp;
 use URI;
 use JSON;
 use Digest::SHA qw(hmac_sha1_hex);
+
+=head1 NAME
 
 =head2 new
 
@@ -31,12 +35,22 @@ sub new {
 
 =cut
 
-sub api_request {
+sub request {
     my $self = shift;
     my ($path) = @_;
 
-    my $ret = $self->_send_request($path)->_check_response()->result();
+    my $ret = $self->_send_request($path)->_check_response();
 
+}
+
+=head2 content
+
+=cut
+
+sub content {
+    my $self = shift;
+
+    return $self->{content};
 }
 
 
@@ -58,23 +72,19 @@ sub _send_request {
 sub _check_response {
     my $self = shift;
 
-    return Transport::AU::PTV::Error->msg("HTTP Error") if $self->{api_response}->is_error;
-    $self->{result} = decode_json($self->{api_response}->decoded_content());
+    $self->{content} = decode_json($self->{api_response}->decoded_content());
+
+    if ($self->{api_response}->is_error) {
+        return Transport::AU::PTV::Error->message("HTTP Error - $self->{content}{message}");
+    }
+
+    # Clean up the HTTP::Response
+    delete $self->{api_response};
 
     return $self;
 }
 
 
-sub result {
-    my $self = shift;
-    my $res = $self->{result};
-
-    # Clean up
-    delete $self->{result};
-    delete $self->{api_response};
-
-    return $res;
-}
 
 sub _generate_signed_uri {
     my $self = shift;
