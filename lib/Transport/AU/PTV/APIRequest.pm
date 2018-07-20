@@ -37,9 +37,9 @@ sub new {
 
 sub request {
     my $self = shift;
-    my ($path) = @_;
+    ($self->{path}, $self->{query_r}) = @_;
 
-    my $ret = $self->_send_request($path)->_check_response();
+    my $ret = $self->_send_request()->_check_response();
 
 }
 
@@ -62,21 +62,21 @@ sub _send_request {
     my $self = shift;
     my ($path) = @_;
 
-    $self->{api_response} = $self->{user_agent}->get(
-            $self->_generate_signed_uri($path)
-    );
+    $self->{api_response} = $self->{user_agent}->get( $self->_generate_signed_uri() );
 
     return $self;
 }
 
 sub _check_response {
     my $self = shift;
+    
+    my $response = $self->{api_response};
+
+    if ($response->is_error) {
+        return Transport::AU::PTV::Error->message("HTTP Error: ".$response->status_line);
+    }
 
     $self->{content} = decode_json($self->{api_response}->decoded_content());
-
-    if ($self->{api_response}->is_error) {
-        return Transport::AU::PTV::Error->message("HTTP Error - $self->{content}{message}");
-    }
 
     # Clean up the HTTP::Response
     delete $self->{api_response};
@@ -88,15 +88,22 @@ sub _check_response {
 
 sub _generate_signed_uri {
     my $self = shift;
-    my ($path) = @_;
+    my $query_r = $self->{query_r} // {};
+    my @query_pairs;
+
+    $query_r->{devid} = $self->{dev_id};
+
+    for (keys %{$query_r}) {
+        push @query_pairs, ($_ => $query_r->{$_});
+    }
 
     my $uri = URI->new('http://timetableapi.ptv.vic.gov.au');
-    $uri->path($path);
-    $uri->query_form(devid => $self->{dev_id});
+    $uri->path($self->{path});
+    $uri->query_form(\@query_pairs);
     
-    my $signature = hmac_sha1_hex($uri->path_query, $self->{api_key});
+    push @query_pairs, (signature => hmac_sha1_hex($uri->path_query, $self->{api_key}));
 
-    $uri->query_form(devid => $self->{dev_id}, signature => $signature);
+    $uri->query_form(\@query_pairs);
 
     return $uri;
 } 

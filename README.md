@@ -1,23 +1,8 @@
-package Transport::AU::PTV;
-
-use strict;
-use warnings;
-use 5.010;
-
-use parent qw(Transport::AU::PTV::NoError);
-
-use Transport::AU::PTV::Error;
-
-use Transport::AU::PTV::APIRequest;
-use Transport::AU::PTV::Routes;
-
-=encoding utf8
-
-=head1 NAME 
+# NAME 
 
 Transport::AU::PTV - access Melbourne public transport data.
 
-=head1 Synopsis
+# Synopsis
 
     my $ptv = Transport::AU::PTV->new({
         dev_id  => '1234',
@@ -35,12 +20,11 @@ Transport::AU::PTV - access Melbourne public transport data.
     # Collections ('Routes', 'Stops', 'Departures') have a map function
     my @stop_names = $ptv->routes->route(id => 20)->stops->map(sub { $_->nam() });
 
+# Description
 
-=head1 Description
+# Methods
 
-=head1 Methods
-
-=head2 new
+## new
 
     my $ptv = Transport::AU::PTV->new({
         dev_id  => '1234',
@@ -49,29 +33,8 @@ Transport::AU::PTV - access Melbourne public transport data.
 
 Creates a new Transport::AU::PTV object. Takes a developer ID and API key.
 
-=cut
+## routes
 
-sub new {
-    my $class = shift;
-    my ($credential_r) = @_;
-    my %ret;
-
-    $ret{api} = Transport::AU::PTV::APIRequest->new($credential_r);
-
-    return bless \%ret, $class;
-}
-
-=head2 routes
-
-Returns a L<Transport::AU::PTV::Routes> object containing all routes of all types on the Melbourne PTV network. 
+Returns a [Transport::AU::PTV::Routes](https://metacpan.org/pod/Transport::AU::PTV::Routes) object containing all routes of all types on the Melbourne PTV network. 
 
     my $routes = $ptv->routes();
-
-=cut
-
-sub routes {
-    my $self = shift;
-    return Transport::AU::PTV::Routes->new( $self->{api} );
-}
-
-1;
