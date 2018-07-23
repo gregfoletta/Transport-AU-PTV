@@ -43,13 +43,24 @@ sub estimated_departure { return $_[0]->{departure}{estimated_departure_utc} // 
 
 =cut
 
-sub at_platform { return $_[0]->{departure}{at_platform}; }
+sub at_platform { return $_[0]->{departure}{at_platform} }
 
 =head2 platform_number
 
 =cut
 
-sub platform_number { return $_[0]->{departure}{platform_number}; }
+sub platform_number { return $_[0]->{departure}{platform_number} }
 
+=head2 direction_id
+
+=cut
+
+sub direction_id { return $_[0]->{departure}{direction_id} }
+
+=head2 run_id 
+
+=cut
+
+sub run_id { return $_[0]->{departure}{run_id} }
 
 1;

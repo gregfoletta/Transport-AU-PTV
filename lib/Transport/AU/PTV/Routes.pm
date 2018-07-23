@@ -19,23 +19,35 @@ Transport::AU::PTV::Routes - a collection of Melbourne public transport routes (
 =head1 Synopsis
 
     my $routes = Transport::AU::PTV->new({ ...})->routes;
-
+    my $train_routes = $
 
 =head1 Description
+
+This object is a collection of routes on the Victorian Public Transport network. It's a child object of L<Transport::AU::PTV::Collecton>, and inherits all of its methods.
 
 =head1 Methods
 
 =head2 new
 
-    my $routes = Transport::AU::PTV::Routes->new( Transport::AU::PTV::APIRequest->new({...}) );
+    my $routes = Transport::AU::PTV::Routes->new( Transport::AU::PTV::APIRequest->new({...}), \%args );
 
-Takes a L<Transport::AU::PTV::APIRequest> object and returns a list of routes available on the Melbourne PTV network.
+Takes a L<Transport::AU::PTV::APIRequest> object and returns a list of routes available on the Melbourne PTV network. C<%args> can be:
+
+=over 4
+
+=item *
+
+() - the entire list of routes is retrieved. 
+
+=item * 
+C<( name =E<gt> 'partial name' )> - filter on a partial match of the route name.
+
+=back
 
 =cut
 
 sub new {
-    my ($self, $api) = @_;
-    my @routes;
+    my ($self, $api, $args_r) = @_;
     my %routes;
 
     $routes{api} = $api;
@@ -49,30 +61,6 @@ sub new {
 
     return bless \%routes, $self;
 }
-
-
-=head2 route 
-    
-    my $upfield_route = $routes->route({name => 'Upfield'});
-
-Returns a single L<Transport::AU::PTV::Route> object based on filter criteria.
-The routes can be filtered by either C<id> or C<name>. 
-
-=cut
-
-sub route {
-    my $self = shift;
-    my ($args) = @_;
-
-    for my $route (@{$self->{collection}}) {
-        return $route if ($args->{id} and $args->{id} == $route->id());
-        return $route if ($args->{name} and $args->{name} eq $route->name());
-    }
-
-    return;
-}
-
-
 
 
 

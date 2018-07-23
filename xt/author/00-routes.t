@@ -20,28 +20,30 @@ ok( !$ptv->error, "Object creation - no error" ) or BAIL_OUT('Transport::AU::PTV
 can_ok( $ptv, @methods );
 
 my $routes = $ptv->routes();
+my $upfield_filter = $ptv->routes({ name => 'Upfield' });
 ok( !$routes->error, "Routes creation - no error" ) or BAIL_OUT('Transport::AU::PTV::Routes creation error: '.$routes->error_string);
+ok( !$upfield_filter->error, "Routes creation - no error" ) or BAIL_OUT('Transport::AU::PTV::Routes creation error: '.$routes->error_string);
 isa_ok( $routes, 'Transport::AU::PTV::Routes' );
 isa_ok( $routes, 'Transport::AU::PTV::Collection' );
-
-my @routes_methods = qw(
-    route
-);
+isa_ok( $upfield_filter, 'Transport::AU::PTV::Routes' );
+isa_ok( $upfield_filter, 'Transport::AU::PTV::Collection' );
 
 my @collection_methods = qw(
     map
     grep
     count
+    find
     as_array
 );
 
 ok( $routes->count, "Routes > 0" );
+ok( $upfield_filter->count, "Upfield filter routes > 0" );
 
-can_ok( $routes, @routes_methods );
 can_ok( $routes, @collection_methods );
+can_ok( $upfield_filter, @collection_methods );
 
 # Go through each route and check to see if all of the routes have defined values for all of their attributes
-foreach ($routes->as_array) {
+foreach ($routes->as_array, $upfield_filter->as_array) {
     isa_ok( $_, 'Transport::AU::PTV::Route' );
     ok( defined $_->name, "Route Name: ". $_->name);
     ok( defined $_->id, "Route ID: ". $_->name. " - ". $_->id);

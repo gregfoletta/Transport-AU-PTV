@@ -9,6 +9,7 @@ use parent qw(Transport::AU::PTV::NoError);
 use Transport::AU::PTV::Error;
 use Transport::AU::PTV::Stops;
 use Transport::AU::PTV::Runs;
+use Transport::AU::PTV::Directions;
 
 =encoding utf8
 
@@ -19,11 +20,13 @@ Transport::AU::PTV::Routes - a collection of Melbourne public transport routes (
 =head1 Synopsis
 
     # Get a single route from the list of all routes.
-    my $routes = Transport::AU::PTV->new({ ...})->routes->route(id =>
-    
-
+    my $route = Transport::AU::PTV->new({ ...})->routes->find({ id => 15 });
+    my $route_name = $route->name;
+    my $route_number = $route->number;
 
 =head1 Description
+
+This object represents a single route on the Public Transport Victoria network.
 
 =head1 Methods
 
@@ -102,6 +105,18 @@ sub runs {
     my $self = shift;
 
     return Transport::AU::PTV::Runs->new( $self->{api}, { route_id => $self->{route}{route_id}, route_type => $self->{route}{route_type} } );
+}
+
+=head2 directions
+
+Returns a L<Transport::AU::PTV::Directions> collection object representing the directions of the route.
+
+=cut
+
+sub directions {
+    my $self = shift;
+
+    return Transport::AU::PTV::Directions->new( $self->{api}, { route_id => $self->{route}{route_id} });
 }
 
 
