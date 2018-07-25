@@ -24,7 +24,7 @@ sub new {
     my ($self, @objects, $constructor) = @_;
     my @collection;
 
-    foreach (@objects}) {
+    foreach (@objects) {
         push @collection, $constructor->($_);
     }
 

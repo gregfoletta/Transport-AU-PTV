@@ -15,6 +15,16 @@ use Transport::AU::PTV::Departure;
 
 =head1 NAME
 
+Transport::AU::PTV::Departures - a collection of departures for a particular stop on the Victorian Public Transport network.
+
+=head1 SYNOPSIS
+
+   # Get the departures for a stop
+    my $departures = Transport::AU::PTV->new
+    ->routes->find({ name => 'Upfield' })
+    ->stops->find({ name => "Coburg Station" })
+    ->departures({ max_results => 1 });
+
 =head1 METHODS
 
 =head2 new

@@ -9,7 +9,6 @@ use parent qw(Transport::AU::PTV::NoError);
 use Transport::AU::PTV::Error;
 use Transport::AU::PTV::Stops;
 use Transport::AU::PTV::Runs;
-use Transport::AU::PTV::Directions;
 
 =encoding utf8
 
@@ -52,6 +51,8 @@ sub id { return $_[0]->{route}{route_id}; }
 
 =head2 gtfs_id 
 
+    my $gtfs_id = $route->gtfs_id;
+
 Returns the GTFS ID of the route.
 
 =cut 
@@ -59,6 +60,8 @@ Returns the GTFS ID of the route.
 sub gtfs_id { return $_[0]->{route}{route_gtfs_id}; }
 
 =head2 number
+
+    my $number = $route->number
 
 Returns the number of the route.
 
@@ -68,6 +71,8 @@ sub number { return $_[0]->{route}{route_number}; }
 
 =head2 name
 
+    my $name = $route->name;
+
 Returns the name of the route
 
 =cut
@@ -75,6 +80,8 @@ Returns the name of the route
 sub name { return $_[0]->{route}{route_name}; }
 
 =head2 type
+
+    my $type = $route->type;
 
 Returns the type of route.
 
@@ -84,6 +91,8 @@ sub type { return $_[0]->{route}{route_type}; }
 
 
 =head2 stops
+
+    my $stops = $route->stops;
 
 Returns a L<Transport::AU::PTV::Stops> collection object representing the stops on the route.
 
@@ -97,6 +106,8 @@ sub stops {
 
 =head2 runs 
 
+    my $runs = $route->runs;
+
 Returns a L<Transport::AU::PTV::Runs> collection object representing the runs of the route.
 
 =cut
@@ -107,17 +118,6 @@ sub runs {
     return Transport::AU::PTV::Runs->new( $self->{api}, { route_id => $self->{route}{route_id}, route_type => $self->{route}{route_type} } );
 }
 
-=head2 directions
-
-Returns a L<Transport::AU::PTV::Directions> collection object representing the directions of the route.
-
-=cut
-
-sub directions {
-    my $self = shift;
-
-    return Transport::AU::PTV::Directions->new( $self->{api}, { route_id => $self->{route}{route_id} });
-}
 
 
 

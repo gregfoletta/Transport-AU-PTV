@@ -1,6 +1,5 @@
 package Transport::AU::PTV::Stops;
 
-
 use strict;
 use warnings;
 use 5.010;
@@ -15,25 +14,23 @@ use Transport::AU::PTV::Stop;
 
 =head1 NAME
 
-Transport::AU::PTV::Stops- a collection of Melbourne public transport stops (train, tram, bus, etc).
+Transport::AU::PTV::Stop - a stop on the Victorian Public Transport Network
 
-=head1 Synopsis
-
-    # Access the stops directly
-    my $direct_stops= Transport::AU::PTV::Stops->new( 
-        Transport::AU::PTV::APIRequest->new({...}),
-        { route_id => 4, route_type => 1 }
-    );
+=head1 SYNOPSIS 
 
     # Retrieve from a route
-    $stops = Transport::AU::PTV->new({ ... })->routes->route(name => 'Upfield)->stops;
+    $stops = Transport::AU::PTV->new({ ... })->routes->find(name => 'Upfield)->stops;
 
 
 =head1 Description
 
+L<Transport::AU::PTV::Stops> is a collection of L<Transport::AU::PTV::Stop> objects. It inherits all of the methods present in its parent L<Transport::AU::PTV::Collecton> class.
+
 =head1 Methods
 
 =head2 new
+
+    my $stops = Transport::AU::PTV::Stops( Transport::AU::PTV::APIRequest->new({ ... }), { route_id => 15, route_type => 0 });
 
 =cut
 
@@ -46,29 +43,11 @@ sub new {
     return $api_response if $api_response->error;
 
     foreach (@{$api_response->content->{stops}}) {
-        push @{$stops{collection}}, Transport::AU::PTV::Stop->new($api, $args_r->{route_id}, $_);
+        push @{$stops{collection}}, Transport::AU::PTV::Stop->new($api, { route_id => $args_r->{route_id}, stop => $_ });
     }
 
     return bless \%stops, $class;
 }
-
-
-=head2 stop
-
-=cut
-
-sub stop {
-    my $self = shift;
-    my ($args_r) = @_;
-
-    for my $stop ($self->as_array) {
-        return $stop if ($args_r->{id} and $args_r->{id} == $stop->id());
-        return $stop if ($args_r->{name} and $args_r->{name} eq $stop->name());
-    }
-
-    return;
-}
-
 
 
 

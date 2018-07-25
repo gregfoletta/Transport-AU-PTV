@@ -63,10 +63,16 @@ On an error the object returns an L<Transport::AU::PTV::Error> object.
 
 =head2 new
 
+    # Call the constructor with explicit arguments
     my $ptv = Transport::AU::PTV->new({
         dev_id  => '1234',
         api_key => 'a1aa1111-11aa-11aa-aaa1-1a1aaa11aaa1'
     });
+
+    # If the environment variables 'PERL_PTV_DEV_ID' and 'PERL_PTV_API_KEY' are defined
+    # then the constructor will use those:
+    # bash# export PTV_DEV_ID=1234 PTV_API_KEY=a1aa1111-11aa-11aa-aaa1-1a1aaa11aaa
+    my $ptv = Transport::AU::PTV->new();
 
 Creates a new Transport::AU::PTV object. Takes a developer ID and API key.
 
@@ -75,6 +81,8 @@ Creates a new Transport::AU::PTV object. Takes a developer ID and API key.
 sub new {
     my $class = shift;
     my ($credential_r) = @_;
+    # If the credential ref is not defined, extract
+    $credential_r //= { dev_id => $ENV{PERL_PTV_DEV_ID}, api_key => $ENV{PERL_PTV_API_KEY} };
     my %ret;
 
     $ret{api} = Transport::AU::PTV::APIRequest->new($credential_r);
