@@ -40,15 +40,15 @@ Transport::AU::PTV - access Melbourne public transport data.
 
 # Description
 
-This module provides access to version 3 of [Public Transport Victria's](https://www.ptv.vic.gov.au/) API. This is bes described by PTV itself:
+This module provides access to version 3 of [Public Transport Victoria's](https://www.ptv.vic.gov.au/) API. This is best described by PTV itself:
 
 > The API has been created to provide public transport timetable data to the public in the most dynamic and efficient way. By providing an API, PTV hopes to maximise both the opportunities for re-use of public transport data and the potential for innovation.
 
 The hierarachy of objects is as such:
 
-- There are a number of [Transport::AU::PTV::Routes](https://metacpan.org/pod/Transport::AU::PTV::Routes) on the network of different types (train, tram, bus, VLine).
-- Each [Transport::AU::PTV::Route](https://metacpan.org/pod/Transport::AU::PTV::Route) has [Transport::AU::PTV::Stops](https://metacpan.org/pod/Transport::AU::PTV::Stops).
-- Each [Transport::AU::PTV::Stops](https://metacpan.org/pod/Transport::AU::PTV::Stops) has [Transport::AU::PTV::Departures](https://metacpan.org/pod/Transport::AU::PTV::Departures).
+- The [Transport::AU::PTV](https://metacpan.org/pod/Transport::AU::PTV) network has train, tram, bus and VLine [Transport::AU::PTV::Routes](https://metacpan.org/pod/Transport::AU::PTV::Routes).
+- Each [Transport::AU::PTV::Route](https://metacpan.org/pod/Transport::AU::PTV::Route) has [Transport::AU::PTV::Stops](https://metacpan.org/pod/Transport::AU::PTV::Stops) where the mode of transport picks up/drops off travellers.
+- Each [Transport::AU::PTV::Stop](https://metacpan.org/pod/Transport::AU::PTV::Stop) has scheduled [Transport::AU::PTV::Departures](https://metacpan.org/pod/Transport::AU::PTV::Departures).
 - Each [Transport::AU::PTV::Departure](https://metacpan.org/pod/Transport::AU::PTV::Departure) has real time data on the estimated departure time and whether the transport is at the platform.
 
 # Errors
