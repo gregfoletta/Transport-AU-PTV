@@ -1,5 +1,9 @@
 package Transport::AU::PTV::Routes;
 
+# VERSION
+# PODNAME
+# ABSTRACT: a collection of routes on the Victorian Public Transport Network.
+
 use strict;
 use warnings;
 use 5.010;

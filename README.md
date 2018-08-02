@@ -1,14 +1,10 @@
 # NAME
 
-Transport::AU::PTV
+Transport::AU::PTV - access Melbourne Public Transport data.
 
 # VERSION
 
-version 0.01
-
-# NAME 
-
-Transport::AU::PTV - access Melbourne public transport data.
+version 0.02
 
 # Synopsis
 

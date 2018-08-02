@@ -1,5 +1,8 @@
 package Transport::AU::PTV::Runs;
 
+# VERSION
+# PODNAME
+# ABSTRACT: a collection of runs on the Victorian Public Transport Network.
 
 use strict;
 use warnings;

@@ -1,5 +1,9 @@
 package Transport::AU::PTV::Error;
 
+# VERSION
+# PODNAME
+# ABSTRACT: error object with AUTOLOAD method slurper.
+
 use strict;
 use warnings;
 use 5.010;

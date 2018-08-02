@@ -1,5 +1,9 @@
 package Transport::AU::PTV::Stops;
 
+# VERSION
+# PODNAME
+# ABSTRACT: a collection of stops on the Victorian Public Transport Network.
+#
 use strict;
 use warnings;
 use 5.010;

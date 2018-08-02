@@ -1,5 +1,9 @@
 package Transport::AU::PTV::NoError;
 
+# VERSION
+# PODNAME
+# ABSTRACT: parent class with C<error> method returning false.
+
 use strict;
 use warnings;
 use 5.010;

@@ -1,5 +1,8 @@
 package Transport::AU::PTV::Departures;
 
+# VERSION
+# PODNAME
+# ABSTRACT: a collection of departures on the Victorian Public Transport Network.
 
 use strict;
 use warnings;

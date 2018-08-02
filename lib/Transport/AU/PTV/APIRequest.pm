@@ -1,5 +1,9 @@
 package Transport::AU::PTV::APIRequest;
 
+# VERSION
+# PODNAME
+# ABSTRACT: PTV API object.
+
 use strict;
 use warnings;
 use 5.010;

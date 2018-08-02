@@ -1,5 +1,9 @@
 package Transport::AU::PTV;
 
+# VERSION
+# PODNAME
+# ABSTRACT: access Melbourne Public Transport data.
+
 use strict;
 use warnings;
 use 5.010;
@@ -12,10 +16,6 @@ use Transport::AU::PTV::APIRequest;
 use Transport::AU::PTV::Routes;
 
 =encoding utf8
-
-=head1 NAME 
-
-Transport::AU::PTV - access Melbourne public transport data.
 
 =head1 Synopsis
 

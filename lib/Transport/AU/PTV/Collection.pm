@@ -1,5 +1,9 @@
 package Transport::AU::PTV::Collection;
 
+# VERSION
+# PODNAME
+# ABSTRACT: collection parent class.
+
 use strict;
 use warnings;
 use 5.010;
