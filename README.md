@@ -12,7 +12,9 @@ Transport::AU::PTV - access Melbourne public transport data.
 
 # Synopsis
 
-    # Create a new object with the developer ID and the API key,.
+    # Create a new object with the developer ID and the API key.
+    # If the credentials are not specified it will attempt to use
+    # the PERL_PTV_DEV_ID and PERL_PTV_API_KEY environment variables.
     my $ptv = Transport::AU::PTV->new({
         dev_id  => '1234',
         aaa_aaa => 'a1aa1111-11aa-11aa-aaa1-1a1aaa11aaa1'
@@ -34,13 +36,20 @@ Transport::AU::PTV - access Melbourne public transport data.
     my @name_and_type = $routes->map(sub { { name => $_->name, type => $_>type } });
 
     # Chain calls together.
-    $ptv->routes->route(id => 20)->stops->stop(id => 2)->departures();
+    $ptv->routes->find(id => 15)->stops->stop(id => 2)->departures();
 
 # Description
 
 This module provides access to version 3 of [Public Transport Victria's](https://www.ptv.vic.gov.au/) API. This is bes described by PTV itself:
 
 > The API has been created to provide public transport timetable data to the public in the most dynamic and efficient way. By providing an API, PTV hopes to maximise both the opportunities for re-use of public transport data and the potential for innovation.
+
+The hierarachy of objects is as such:
+
+- There are a number of [Transport::AU::PTV::Routes](https://metacpan.org/pod/Transport::AU::PTV::Routes) on the network of different types (train, tram, bus, VLine).
+- Each [Transport::AU::PTV::Route](https://metacpan.org/pod/Transport::AU::PTV::Route) has [Transport::AU::PTV::Stops](https://metacpan.org/pod/Transport::AU::PTV::Stops).
+- Each [Transport::AU::PTV::Stops](https://metacpan.org/pod/Transport::AU::PTV::Stops) has [Transport::AU::PTV::Departures](https://metacpan.org/pod/Transport::AU::PTV::Departures).
+- Each [Transport::AU::PTV::Departure](https://metacpan.org/pod/Transport::AU::PTV::Departure) has real time data on the estimated departure time and whether the transport is at the platform.
 
 # Errors
 
