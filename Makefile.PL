@@ -7,7 +7,7 @@ use 5.010;
 use ExtUtils::MakeMaker;
 
 my %WriteMakefileArgs = (
-  "ABSTRACT" => "access Melbourne public transport data.",
+  "ABSTRACT" => "access Melbourne Public Transport data.",
   "AUTHOR" => "Greg Foletta <greg\@foletta.org>",
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => 0
