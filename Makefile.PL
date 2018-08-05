@@ -16,7 +16,18 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "MIN_PERL_VERSION" => "5.010",
   "NAME" => "Transport::AU::PTV",
-  "PREREQ_PM" => {},
+  "PREREQ_PM" => {
+    "Carp" => 0,
+    "DateTime::Format::ISO8601" => 0,
+    "Digest::SHA" => 0,
+    "JSON" => 0,
+    "LWP::UserAgent" => 0,
+    "URI" => 0,
+    "constant" => 0,
+    "parent" => 0,
+    "strict" => 0,
+    "warnings" => 0
+  },
   "VERSION" => "0.02",
   "test" => {
     "TESTS" => "t/*.t"
@@ -24,7 +35,18 @@ my %WriteMakefileArgs = (
 );
 
 
-my %FallbackPrereqs = ();
+my %FallbackPrereqs = (
+  "Carp" => 0,
+  "DateTime::Format::ISO8601" => 0,
+  "Digest::SHA" => 0,
+  "JSON" => 0,
+  "LWP::UserAgent" => 0,
+  "URI" => 0,
+  "constant" => 0,
+  "parent" => 0,
+  "strict" => 0,
+  "warnings" => 0
+);
 
 
 unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
