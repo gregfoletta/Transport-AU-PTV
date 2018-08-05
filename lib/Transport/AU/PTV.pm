@@ -24,7 +24,7 @@ use Transport::AU::PTV::Routes;
     # the PERL_PTV_DEV_ID and PERL_PTV_API_KEY environment variables.
     my $ptv = Transport::AU::PTV->new({
         dev_id  => '1234',
-        aaa_aaa => 'a1aa1111-11aa-11aa-aaa1-1a1aaa11aaa1'
+        api_key => 'a1aa1111-11aa-11aa-aaa1-1a1aaa11aaa1'
     });
 
     # Get all of the routes on the network.

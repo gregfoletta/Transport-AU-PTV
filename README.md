@@ -4,7 +4,7 @@ Transport::AU::PTV - access Melbourne Public Transport data.
 
 # VERSION
 
-version 0.02
+version 0.03
 
 # Synopsis
 
@@ -13,7 +13,7 @@ version 0.02
     # the PERL_PTV_DEV_ID and PERL_PTV_API_KEY environment variables.
     my $ptv = Transport::AU::PTV->new({
         dev_id  => '1234',
-        aaa_aaa => 'a1aa1111-11aa-11aa-aaa1-1a1aaa11aaa1'
+        api_key => 'a1aa1111-11aa-11aa-aaa1-1a1aaa11aaa1'
     });
 
     # Get all of the routes on the network.
